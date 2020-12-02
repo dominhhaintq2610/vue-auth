@@ -1,17 +1,28 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <Nav />
+      
+      <div class="auth-wrapper">
+        <div class="auth-inner">
+          <router-view></router-view>
+        </div>
+      </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Nav from './components/Nav.vue'
+import axios from "axios";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Nav
+  },
+  async created() {
+    const response = await axios.get('user');
+
+    this.$store.dispatch('user', response.data);
   }
 }
 </script>
